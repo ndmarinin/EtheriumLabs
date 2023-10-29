@@ -2,11 +2,12 @@
 pragma solidity ^0.8.0;
 
 contract EventContract {
-    address public owner;
-    uint256 public data;
-    address public lastUpdatedBy;
+    address private owner;
+    uint256 private data;
+    address private lastUpdatedBy;
 
     event DataUpdated(address indexed user, uint256 newValue);
+    event ValueIsZero(address indexed user);
 
     constructor() {
         owner = msg.sender;
@@ -18,6 +19,9 @@ contract EventContract {
         data = newValue;
         lastUpdatedBy = msg.sender;
         emit DataUpdated(msg.sender, newValue);
+        if (data == 0) {
+            emit ValueIsZero(msg.sender);
+        }
     }
 
     function getData() public view returns (uint256) {

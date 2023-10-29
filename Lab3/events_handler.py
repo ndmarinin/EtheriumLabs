@@ -8,7 +8,7 @@ w3 = Web3(Web3.HTTPProvider(INFRUA_URI))
 
 
 def handle_event(event):
-    print(f"Event DataUpdated: new value = {int.from_bytes(event['data'], byteorder='big')}")
+    print(event)
 
 
 def log_loop(event_filter, poll_interval):
@@ -19,6 +19,10 @@ def log_loop(event_filter, poll_interval):
 
 
 def main():
+    """
+    Получение всех событий связанных с контрактом
+    :return:
+    """
     block_filter = w3.eth.filter({"address": CONTRACT_ADDRESS})
     log_loop(block_filter, 2)
 
